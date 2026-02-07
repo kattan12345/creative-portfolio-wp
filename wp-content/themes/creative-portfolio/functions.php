@@ -85,22 +85,38 @@ add_action( 'after_setup_theme', 'creative_portfolio_setup' );
 
 /**
  * Enqueues front-end styles and scripts with filemtime versioning.
- * TailwindCSS loaded via CDN script in header.php (temporary).
+ * Load order: 1) Google Fonts, 2) compiled TailwindCSS, 3) main stylesheet, then JS.
  */
 function creative_portfolio_enqueue_assets(): void {
 	$theme_uri  = get_theme_file_uri( '' );
 	$theme_path = get_theme_file_path( '' );
 
-	// Main theme stylesheet (only if file exists to avoid 404).
-	$style_path = $theme_path . '/style.css';
-	if ( file_exists( $style_path ) ) {
+	// 1. Google Fonts (Inter) — load first so Tailwind can use font-sans.
+	wp_enqueue_style(
+		'creative-portfolio-fonts',
+		'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap',
+		array(),
+		null
+	);
+
+	// 2. Compiled TailwindCSS — load second, only if built output exists.
+	$tailwind_path = get_template_directory() . '/assets/css/output.css';
+	if ( file_exists( $tailwind_path ) ) {
 		wp_enqueue_style(
-			'creative-portfolio-style',
-			get_stylesheet_uri(),
-			array(),
-			(string) filemtime( $style_path )
+			'creative-portfolio-tailwind',
+			get_template_directory_uri() . '/assets/css/output.css',
+			array( 'creative-portfolio-fonts' ),
+			(string) filemtime( $tailwind_path )
 		);
 	}
+
+	// 3. Main theme stylesheet — load third so it overrides Tailwind when needed.
+	wp_enqueue_style(
+		'creative-portfolio-style',
+		get_stylesheet_uri(),
+		array( 'creative-portfolio-tailwind' ),
+		(string) filemtime( get_template_directory() . '/style.css' )
+	);
 
 	// Header JavaScript (footer, defer).
 	$header_js_path = $theme_path . '/assets/js/header.js';

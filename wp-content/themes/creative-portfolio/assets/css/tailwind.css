@@ -1,0 +1,135 @@
+/**
+ * Creative Portfolio — Tailwind CSS source file.
+ * Build with: npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/output.css (or dist)
+ *
+ * Contains: @tailwind layers, custom base, WordPress overrides, components, utilities.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Base layer — smooth scroll, typography defaults
+   ========================================================================== */
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+/* ==========================================================================
+   WordPress-specific overrides (accessibility, alignment, captions)
+   ========================================================================== */
+
+@layer base {
+  /* Skip link / screen reader text — visually hidden, visible on focus */
+  .screen-reader-text {
+    @apply absolute h-px w-px -m-px overflow-hidden border-0 p-0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    word-wrap: normal;
+  }
+
+  .screen-reader-text:focus {
+    @apply z-[100000] block h-auto w-auto rounded px-4 py-3 text-base font-semibold;
+    clip: auto;
+    clip-path: none;
+    background-color: #fff;
+    color: #000;
+    left: 0.5rem;
+    top: 0.5rem;
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  /* Block alignment (WordPress editor) */
+  .alignleft {
+    @apply float-left mb-2 mr-6;
+  }
+
+  .alignright {
+    @apply float-right mb-2 ml-6;
+  }
+
+  .aligncenter {
+    @apply mx-auto mb-2 block;
+  }
+
+  .wp-caption {
+    @apply max-w-full;
+  }
+
+  .wp-caption-text {
+    @apply mt-2 text-sm text-neutral-400;
+  }
+}
+
+/* ==========================================================================
+   Component classes — glass effect, gradient text, buttons
+   ========================================================================== */
+
+@layer components {
+  /* Glassmorphism panel (backdrop blur + border) */
+  .glass-effect {
+    @apply border border-white/[0.06] bg-neutral-950/95 backdrop-blur-2xl;
+  }
+
+  /* Gradient text (fuchsia → pink) */
+  .gradient-text {
+    @apply bg-gradient-to-r from-fuchsia-400 to-pink-400 bg-clip-text text-transparent;
+  }
+
+  /* Primary CTA button (gradient + hover glow) — inner content should use relative z-10 */
+  .btn-primary {
+    @apply relative overflow-hidden rounded-full bg-gradient-to-r from-fuchsia-600 to-pink-600 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:from-fuchsia-500 hover:to-pink-500;
+  }
+
+  .btn-primary > * {
+    @apply relative z-10;
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 z-0 bg-gradient-to-r from-fuchsia-600 to-pink-600 opacity-0 blur-xl transition-opacity duration-500;
+  }
+
+  .btn-primary:hover::before {
+    @apply opacity-60;
+  }
+}
+
+/* ==========================================================================
+   Custom utilities and animations
+   ========================================================================== */
+
+@layer utilities {
+  /* Gradient border glow (for logo/cards) */
+  .gradient-glow {
+    @apply bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-70 blur-sm;
+  }
+
+  /* Active nav underline (used with JS .nav-link-active) */
+  .nav-link-active .nav-link-text {
+    background: linear-gradient(to right, #e879f9, #f472b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .nav-link-active [data-active-underline] {
+    transform: scaleX(1);
+  }
+
+  /* Stagger animation delays (e.g. mobile nav items) */
+  .stagger-1 { animation-delay: 70ms; }
+  .stagger-2 { animation-delay: 140ms; }
+  .stagger-3 { animation-delay: 210ms; }
+  .stagger-4 { animation-delay: 280ms; }
+  .stagger-5 { animation-delay: 350ms; }
+}

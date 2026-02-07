@@ -1,0 +1,358 @@
+/**
+ * Creative Portfolio — Tailwind CSS source file.
+ * Build with: npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/output.css (or dist)
+ *
+ * Contains: @tailwind layers, custom base, WordPress overrides, components, utilities.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Base layer — smooth scroll, typography defaults
+   ========================================================================== */
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+/* ==========================================================================
+   WordPress-specific overrides (accessibility, alignment, captions)
+   ========================================================================== */
+
+@layer base {
+  /* Skip link / screen reader text — visually hidden, visible on focus */
+  .screen-reader-text {
+    @apply absolute h-px w-px -m-px overflow-hidden border-0 p-0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    word-wrap: normal;
+  }
+
+  .screen-reader-text:focus {
+    @apply z-[100000] block h-auto w-auto rounded px-4 py-3 text-base font-semibold;
+    clip: auto;
+    clip-path: none;
+    background-color: #fff;
+    color: #000;
+    left: 0.5rem;
+    top: 0.5rem;
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  /* Block alignment (WordPress editor) */
+  .alignleft {
+    @apply float-left mb-2 mr-6;
+  }
+
+  .alignright {
+    @apply float-right mb-2 ml-6;
+  }
+
+  .aligncenter {
+    @apply mx-auto mb-2 block;
+  }
+
+  .wp-caption {
+    @apply max-w-full;
+  }
+
+  .wp-caption-text {
+    @apply mt-2 text-sm text-neutral-400;
+  }
+}
+
+/* ==========================================================================
+   Component classes — glass effect, gradient text, buttons
+   ========================================================================== */
+
+@layer components {
+  /* Glassmorphism panel (backdrop blur + border) */
+  .glass-effect {
+    @apply border border-white/[0.06] bg-neutral-950/95 backdrop-blur-2xl;
+  }
+
+  /* Gradient text (fuchsia → pink) */
+  .gradient-text {
+    @apply bg-gradient-to-r from-fuchsia-400 to-pink-400 bg-clip-text text-transparent;
+  }
+
+  /* Primary CTA button (gradient + hover glow) — inner content should use relative z-10 */
+  .btn-primary {
+    @apply relative overflow-hidden rounded-full bg-gradient-to-r from-fuchsia-600 to-pink-600 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:from-fuchsia-500 hover:to-pink-500;
+  }
+
+  .btn-primary > * {
+    @apply relative z-10;
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 z-0 bg-gradient-to-r from-fuchsia-600 to-pink-600 opacity-0 blur-xl transition-opacity duration-500;
+  }
+
+  .btn-primary:hover::before {
+    @apply opacity-60;
+  }
+}
+
+/* ==========================================================================
+   Custom utilities and animations
+   ========================================================================== */
+
+@layer utilities {
+  /* Gradient border glow (for logo/cards) */
+  .gradient-glow {
+    @apply bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-70 blur-sm;
+  }
+
+  /* Active nav underline (used with JS .nav-link-active) */
+  .nav-link-active .nav-link-text {
+    background: linear-gradient(to right, #e879f9, #f472b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .nav-link-active [data-active-underline] {
+    transform: scaleX(1);
+  }
+
+  /* Stagger animation delays (e.g. mobile nav items) */
+  .stagger-1 { animation-delay: 70ms; }
+  .stagger-2 { animation-delay: 140ms; }
+  .stagger-3 { animation-delay: 210ms; }
+  .stagger-4 { animation-delay: 280ms; }
+  .stagger-5 { animation-delay: 350ms; }
+}
+
+/* ==========================================================================
+   Hero Section Animations
+   ========================================================================== */
+
+/* Fade up entrance animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating orb animations */
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -40px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(10px, -20px) scale(1.02); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(25px, -30px) scale(1.03); }
+  40% { transform: translate(-15px, 15px) scale(0.97); }
+  60% { transform: translate(15px, -25px) scale(1.04); }
+  80% { transform: translate(-10px, 10px) scale(0.98); }
+}
+
+@keyframes floatOrb3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(-25px, -35px) scale(1.02); }
+  60% { transform: translate(20px, 25px) scale(0.96); }
+}
+
+/* Scroll indicator animations */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Animation utility classes */
+.hero-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.hero-orb-1 {
+  animation: floatOrb1 22s linear infinite;
+}
+
+.hero-orb-2 {
+  animation: floatOrb2 28s linear infinite;
+}
+
+.hero-orb-3 {
+  animation: floatOrb3 35s linear infinite;
+}
+
+.scroll-pulse {
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+.scroll-bounce {
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   Portfolio Grid Animations
+   ========================================================================== */
+
+/* Card entrance animation */
+@keyframes portfolioFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Filter transition animations */
+@keyframes portfolioFilterOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes portfolioFilterIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Utility classes */
+.portfolio-card-enter {
+  animation: portfolioFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.portfolio-filter-out {
+  animation: portfolioFilterOut 0.3s ease-out forwards;
+}
+
+.portfolio-filter-in {
+  animation: portfolioFilterIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.portfolio-hidden {
+  display: none;
+}
+
+/* Active filter button styles */
+.portfolio-filter-active {
+  background: linear-gradient(to right, rgb(192, 38, 211), rgb(219, 39, 119));
+  color: white;
+  box-shadow: 0 10px 25px -5px rgba(217, 70, 239, 0.2);
+}
+
+/* ===== Services Section Animations ===== */
+
+/* Card entrance animation */
+@keyframes servicesFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Icon rotation on hover */
+.service-icon-rotate {
+  transition: transform 0.3s ease-out;
+  transform: rotate(6deg);
+}
+
+/* Utility classes */
+.services-fade-up {
+  animation: servicesFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+/* Service card hover effects */
+.service-card:hover .service-icon {
+  transform: rotate(6deg);
+}
+
+/* ===== Contact Section Animations ===== */
+
+/* Fade from left */
+@keyframes contactFadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade from right */
+@keyframes contactFadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Status message fade in */
+@keyframes contactStatusFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility classes */
+.contact-fade-left {
+  animation: contactFadeLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.contact-fade-right {
+  animation: contactFadeRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.contact-status-show {
+  animation: contactStatusFadeIn 0.3s ease-out forwards;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "creative-portfolio-wp",
+  "version": "1.0.0",
+  "description": "Modern, animated WordPress portfolio theme built with **v0.dev** + **Cursor** + **TailwindCSS**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kattan12345/creative-portfolio-wp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kattan12345/creative-portfolio-wp/issues"
+  },
+  "homepage": "https://github.com/kattan12345/creative-portfolio-wp#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.24",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.18"
+  }
+}

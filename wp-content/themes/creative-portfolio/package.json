@@ -1,0 +1,16 @@
+{
+  "name": "creative-portfolio",
+  "version": "1.0.0",
+  "description": "Creative Portfolio WordPress theme — TailwindCSS build",
+  "private": true,
+  "scripts": {
+    "dev": "postcss assets/css/tailwind.css -o assets/css/output.css --watch",
+    "build": "NODE_ENV=production postcss assets/css/tailwind.css -o assets/css/output.css",
+    "build:minify": "NODE_ENV=production postcss assets/css/tailwind.css -o assets/css/output.min.css"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15"
+  }
+}

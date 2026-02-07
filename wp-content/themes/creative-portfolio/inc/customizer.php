@@ -28,7 +28,7 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	);
 
 	$wp_customize->add_setting( 'hero_eyebrow', array(
-		'default'           => '',
+		'default'           => 'Creative Digital Agency',
 		'sanitize_callback' => 'sanitize_text_field',
 	) );
 	$wp_customize->add_control( 'hero_eyebrow', array(
@@ -38,17 +38,18 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	$wp_customize->add_setting( 'hero_headline', array(
-		'default'           => '',
-		'sanitize_callback' => 'sanitize_text_field',
+		'default'           => 'We Create Digital<br>Experiences',
+		'sanitize_callback' => 'wp_kses_post',
 	) );
 	$wp_customize->add_control( 'hero_headline', array(
-		'label'   => __( 'Headline', 'creative-portfolio' ),
-		'section' => 'creative_portfolio_hero',
-		'type'    => 'text',
+		'label'       => __( 'Headline', 'creative-portfolio' ),
+		'description' => __( 'Allowed HTML: e.g. &lt;br&gt; for line breaks.', 'creative-portfolio' ),
+		'section'     => 'creative_portfolio_hero',
+		'type'        => 'textarea',
 	) );
 
 	$wp_customize->add_setting( 'hero_subheadline', array(
-		'default'           => '',
+		'default'           => 'Award-winning creative agency specializing in modern web design & development that captivates and converts.',
 		'sanitize_callback' => 'sanitize_textarea_field',
 	) );
 	$wp_customize->add_control( 'hero_subheadline', array(
@@ -58,7 +59,7 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	$wp_customize->add_setting( 'hero_cta_primary_text', array(
-		'default'           => '',
+		'default'           => 'View Our Work',
 		'sanitize_callback' => 'sanitize_text_field',
 	) );
 	$wp_customize->add_control( 'hero_cta_primary_text', array(
@@ -68,7 +69,7 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	$wp_customize->add_setting( 'hero_cta_primary_url', array(
-		'default'           => '',
+		'default'           => '#work',
 		'sanitize_callback' => 'esc_url_raw',
 	) );
 	$wp_customize->add_control( 'hero_cta_primary_url', array(
@@ -78,7 +79,7 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	$wp_customize->add_setting( 'hero_cta_secondary_text', array(
-		'default'           => '',
+		'default'           => 'Get in Touch',
 		'sanitize_callback' => 'sanitize_text_field',
 	) );
 	$wp_customize->add_control( 'hero_cta_secondary_text', array(
@@ -88,7 +89,7 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	$wp_customize->add_setting( 'hero_cta_secondary_url', array(
-		'default'           => '',
+		'default'           => '#contact',
 		'sanitize_callback' => 'esc_url_raw',
 	) );
 	$wp_customize->add_control( 'hero_cta_secondary_url', array(

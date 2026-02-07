@@ -138,6 +138,15 @@ function creative_portfolio_enqueue_assets(): void {
 		true
 	);
 
+	// Hero section animations (footer, defer; depends on main.js).
+	wp_enqueue_script(
+		'creative-portfolio-hero',
+		get_template_directory_uri() . '/assets/js/hero.js',
+		array( 'creative-portfolio-main' ),
+		(string) filemtime( get_template_directory() . '/assets/js/hero.js' ),
+		true
+	);
+
 	// Localized data for scripts (e.g. AJAX, nonce, home URL).
 	wp_localize_script(
 		'creative-portfolio-header',
@@ -173,7 +182,7 @@ add_action( 'wp_enqueue_scripts', 'creative_portfolio_enqueue_assets' );
  * @return string Modified script tag.
  */
 function creative_portfolio_script_loader_tag( string $tag, string $handle, string $src ): string {
-	$defer_handles = array( 'creative-portfolio-header', 'creative-portfolio-main' );
+	$defer_handles = array( 'creative-portfolio-header', 'creative-portfolio-main', 'creative-portfolio-hero' );
 	if ( in_array( $handle, $defer_handles, true ) ) {
 		if ( str_contains( $tag, ' defer' ) ) {
 			return $tag;

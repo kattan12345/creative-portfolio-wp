@@ -133,3 +133,78 @@
   .stagger-4 { animation-delay: 280ms; }
   .stagger-5 { animation-delay: 350ms; }
 }
+
+/* ==========================================================================
+   Hero Section Animations
+   ========================================================================== */
+
+/* Fade up entrance animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating orb animations */
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -40px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(10px, -20px) scale(1.02); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(25px, -30px) scale(1.03); }
+  40% { transform: translate(-15px, 15px) scale(0.97); }
+  60% { transform: translate(15px, -25px) scale(1.04); }
+  80% { transform: translate(-10px, 10px) scale(0.98); }
+}
+
+@keyframes floatOrb3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(-25px, -35px) scale(1.02); }
+  60% { transform: translate(20px, 25px) scale(0.96); }
+}
+
+/* Scroll indicator animations */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Animation utility classes */
+.hero-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.hero-orb-1 {
+  animation: floatOrb1 22s linear infinite;
+}
+
+.hero-orb-2 {
+  animation: floatOrb2 28s linear infinite;
+}
+
+.hero-orb-3 {
+  animation: floatOrb3 35s linear infinite;
+}
+
+.scroll-pulse {
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+.scroll-bounce {
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}

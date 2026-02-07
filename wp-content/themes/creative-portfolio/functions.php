@@ -156,6 +156,26 @@ function creative_portfolio_enqueue_assets(): void {
 		true
 	);
 
+	// Services section animations (footer, defer; depends on main.js).
+	$services_js_path = get_template_directory() . '/assets/js/services.js';
+	wp_enqueue_script(
+		'creative-portfolio-services',
+		get_template_directory_uri() . '/assets/js/services.js',
+		array( 'creative-portfolio-main' ),
+		file_exists( $services_js_path ) ? (string) filemtime( $services_js_path ) : CREATIVE_PORTFOLIO_VERSION,
+		true
+	);
+
+	// Contact form: validation + AJAX submit (footer, defer; needs creativePortfolio.ajaxUrl from main).
+	$contact_form_js_path = get_template_directory() . '/assets/js/contact-form.js';
+	wp_enqueue_script(
+		'creative-portfolio-contact-form',
+		get_template_directory_uri() . '/assets/js/contact-form.js',
+		array( 'creative-portfolio-main' ),
+		file_exists( $contact_form_js_path ) ? (string) filemtime( $contact_form_js_path ) : CREATIVE_PORTFOLIO_VERSION,
+		true
+	);
+
 	// Localized data for scripts (e.g. AJAX, nonce, home URL).
 	wp_localize_script(
 		'creative-portfolio-header',
@@ -170,9 +190,10 @@ function creative_portfolio_enqueue_assets(): void {
 		'creative-portfolio-main',
 		'creativePortfolio',
 		array(
-			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-			'nonce'   => wp_create_nonce( 'creative-portfolio-nonce' ),
-			'homeUrl' => home_url( '/' ),
+			'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
+			'nonce'        => wp_create_nonce( 'creative_portfolio_nonce' ),
+			'contactNonce' => wp_create_nonce( 'contact_form_nonce' ),
+			'homeUrl'      => home_url( '/' ),
 		)
 	);
 }
@@ -191,7 +212,7 @@ add_action( 'wp_enqueue_scripts', 'creative_portfolio_enqueue_assets' );
  * @return string Modified script tag.
  */
 function creative_portfolio_script_loader_tag( string $tag, string $handle, string $src ): string {
-	$defer_handles = array( 'creative-portfolio-header', 'creative-portfolio-main', 'creative-portfolio-hero', 'creative-portfolio-portfolio-filter' );
+	$defer_handles = array( 'creative-portfolio-header', 'creative-portfolio-main', 'creative-portfolio-hero', 'creative-portfolio-portfolio-filter', 'creative-portfolio-services', 'creative-portfolio-contact-form' );
 	if ( in_array( $handle, $defer_handles, true ) ) {
 		if ( str_contains( $tag, ' defer' ) ) {
 			return $tag;
@@ -266,6 +287,7 @@ if ( file_exists( $creative_portfolio_inc_dir . '/customizer.php' ) ) {
 
 require get_template_directory() . '/inc/portfolio-post-type.php';
 require get_template_directory() . '/inc/portfolio-sample-data.php';
+require get_template_directory() . '/inc/contact-form-handler.php';
 
 /**
  * Flush rewrite rules on theme activation.

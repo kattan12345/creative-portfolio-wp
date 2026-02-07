@@ -272,3 +272,87 @@
   color: white;
   box-shadow: 0 10px 25px -5px rgba(217, 70, 239, 0.2);
 }
+
+/* ===== Services Section Animations ===== */
+
+/* Card entrance animation */
+@keyframes servicesFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Icon rotation on hover */
+.service-icon-rotate {
+  transition: transform 0.3s ease-out;
+  transform: rotate(6deg);
+}
+
+/* Utility classes */
+.services-fade-up {
+  animation: servicesFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+/* Service card hover effects */
+.service-card:hover .service-icon {
+  transform: rotate(6deg);
+}
+
+/* ===== Contact Section Animations ===== */
+
+/* Fade from left */
+@keyframes contactFadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade from right */
+@keyframes contactFadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Status message fade in */
+@keyframes contactStatusFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility classes */
+.contact-fade-left {
+  animation: contactFadeLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.contact-fade-right {
+  animation: contactFadeRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.contact-status-show {
+  animation: contactStatusFadeIn 0.3s ease-out forwards;
+}

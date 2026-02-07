@@ -140,7 +140,119 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	// -------------------------------------------------------------------------
-	// 3. Social Links
+	// 3. Services Section
+	// -------------------------------------------------------------------------
+	$wp_customize->add_section(
+		'creative_portfolio_services',
+		array(
+			'title'    => __( 'Services Section', 'creative-portfolio' ),
+			'priority' => 37,
+		)
+	);
+
+	$wp_customize->add_setting( 'services_eyebrow', array(
+		'default'           => 'What We Do',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'services_eyebrow', array(
+		'label'   => __( 'Eyebrow text', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_services',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'services_title', array(
+		'default'           => 'Our Services',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'services_title', array(
+		'label'   => __( 'Title', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_services',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'services_description', array(
+		'default'           => 'Comprehensive digital solutions tailored to your needs',
+		'sanitize_callback' => 'sanitize_textarea_field',
+	) );
+	$wp_customize->add_control( 'services_description', array(
+		'label'   => __( 'Description', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_services',
+		'type'    => 'textarea',
+	) );
+
+	// -------------------------------------------------------------------------
+	// 4. Contact Section
+	// -------------------------------------------------------------------------
+	$wp_customize->add_section(
+		'creative_portfolio_contact',
+		array(
+			'title'    => __( 'Contact Section', 'creative-portfolio' ),
+			'priority' => 38,
+		)
+	);
+
+	$wp_customize->add_setting( 'contact_eyebrow', array(
+		'default'           => 'Get In Touch',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'contact_eyebrow', array(
+		'label'   => __( 'Eyebrow text', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_contact',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'contact_title', array(
+		'default'           => "Let's Work Together",
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'contact_title', array(
+		'label'   => __( 'Title', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_contact',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'contact_description', array(
+		'default'           => "Have a project in mind? We'd love to hear about it and help bring your vision to life.",
+		'sanitize_callback' => 'sanitize_textarea_field',
+	) );
+	$wp_customize->add_control( 'contact_description', array(
+		'label'   => __( 'Description', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_contact',
+		'type'    => 'textarea',
+	) );
+
+	$wp_customize->add_setting( 'contact_email', array(
+		'default'           => 'hello@creative.agency',
+		'sanitize_callback' => 'sanitize_email',
+	) );
+	$wp_customize->add_control( 'contact_email', array(
+		'label'   => __( 'Email', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_contact',
+		'type'    => 'email',
+	) );
+
+	$wp_customize->add_setting( 'contact_phone', array(
+		'default'           => '+1 (555) 123-4567',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'contact_phone', array(
+		'label'   => __( 'Phone', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_contact',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'contact_location', array(
+		'default'           => 'San Francisco, CA',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'contact_location', array(
+		'label'   => __( 'Location', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_contact',
+		'type'    => 'text',
+	) );
+
+	// -------------------------------------------------------------------------
+	// 5. Social Links
 	// -------------------------------------------------------------------------
 	$wp_customize->add_section(
 		'creative_portfolio_social',
@@ -191,7 +303,7 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	// -------------------------------------------------------------------------
-	// 4. Footer
+	// 6. Footer
 	// -------------------------------------------------------------------------
 	$wp_customize->add_section(
 		'creative_portfolio_footer',

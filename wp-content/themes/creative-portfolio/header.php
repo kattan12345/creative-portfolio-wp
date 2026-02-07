@@ -18,29 +18,7 @@ $header_scroll_threshold = 20;
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- TailwindCSS CDN (temporary for development) -->
-	<script src="https://cdn.tailwindcss.com"></script>
-	<script>
-	  tailwind.config = {
-	    darkMode: 'class',
-	    theme: {
-	      extend: {
-	        colors: {
-	          fuchsia: {
-	            400: '#e879f9',
-	            500: '#d946ef',
-	            600: '#c026d3',
-	          },
-	          pink: {
-	            400: '#f472b6',
-	            500: '#ec4899',
-	            600: '#db2777',
-	          },
-	        },
-	      },
-	    },
-	  }
-	</script>
+	<!-- Styles loaded via compiled TailwindCSS in functions.php -->
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class( 'bg-black text-white antialiased' ); ?>>

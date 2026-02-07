@@ -80,6 +80,22 @@ function creative_portfolio_setup(): void {
 add_action( 'after_setup_theme', 'creative_portfolio_setup' );
 
 // -----------------------------------------------------------------------------
+// 1b. IMAGE OPTIMIZATION
+// -----------------------------------------------------------------------------
+
+/**
+ * Enables WebP upload support.
+ *
+ * @param array $mimes Mime types keyed by extension.
+ * @return array
+ */
+function creative_portfolio_enable_webp( array $mimes ): array {
+	$mimes['webp'] = 'image/webp';
+	return $mimes;
+}
+add_filter( 'upload_mimes', 'creative_portfolio_enable_webp' );
+
+// -----------------------------------------------------------------------------
 // 2. ENQUEUE SCRIPTS & STYLES
 // -----------------------------------------------------------------------------
 
@@ -223,6 +239,24 @@ function creative_portfolio_script_loader_tag( string $tag, string $handle, stri
 }
 add_filter( 'script_loader_tag', 'creative_portfolio_script_loader_tag', 10, 3 );
 
+/**
+ * Adds defer to all theme scripts (handle prefix creative-portfolio-) on front end.
+ *
+ * @param string $tag    The script tag.
+ * @param string $handle The script handle.
+ * @return string Modified script tag.
+ */
+function creative_portfolio_defer_scripts( string $tag, string $handle ): string {
+	if ( strpos( $handle, 'creative-portfolio-' ) === 0 && ! is_admin() ) {
+		if ( str_contains( $tag, ' defer' ) ) {
+			return $tag;
+		}
+		$tag = str_replace( ' src', ' defer src', $tag );
+	}
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'creative_portfolio_defer_scripts', 10, 2 );
+
 // -----------------------------------------------------------------------------
 // 4. WIDGET AREAS
 // -----------------------------------------------------------------------------
@@ -288,6 +322,8 @@ if ( file_exists( $creative_portfolio_inc_dir . '/customizer.php' ) ) {
 require get_template_directory() . '/inc/portfolio-post-type.php';
 require get_template_directory() . '/inc/portfolio-sample-data.php';
 require get_template_directory() . '/inc/contact-form-handler.php';
+require get_template_directory() . '/inc/seo.php';
+require get_template_directory() . '/inc/security.php';
 
 /**
  * Flush rewrite rules on theme activation.
@@ -300,27 +336,6 @@ add_action( 'after_switch_theme', 'creative_portfolio_flush_rewrites' );
 // -----------------------------------------------------------------------------
 // 7. CONTENT WIDTH (handled by global $content_width at top of file)
 // -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-// 8. SECURITY (VERSION REMOVAL, XML-RPC)
-// -----------------------------------------------------------------------------
-
-/**
- * Removes WordPress version from head (generator meta and scripts/styles).
- */
-function creative_portfolio_remove_version(): void {
-	remove_action( 'wp_head', 'wp_generator' );
-	add_filter( 'the_generator', '__return_empty_string' );
-}
-add_action( 'after_setup_theme', 'creative_portfolio_remove_version' );
-
-/**
- * Disables XML-RPC (pingback and remote publishing) if not needed.
- */
-function creative_portfolio_disable_xml_rpc(): void {
-	add_filter( 'xmlrpc_enabled', '__return_false' );
-}
-add_action( 'after_setup_theme', 'creative_portfolio_disable_xml_rpc' );
 
 // -----------------------------------------------------------------------------
 // NAV MENU WALKER (used by header.php for primary menu)

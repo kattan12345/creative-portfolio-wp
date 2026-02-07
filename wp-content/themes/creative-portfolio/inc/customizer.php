@@ -99,7 +99,48 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	// -------------------------------------------------------------------------
-	// 2. Social Links
+	// 2. Portfolio Grid
+	// -------------------------------------------------------------------------
+	$wp_customize->add_section(
+		'creative_portfolio_portfolio',
+		array(
+			'title'    => __( 'Portfolio Grid', 'creative-portfolio' ),
+			'priority' => 35,
+		)
+	);
+
+	$wp_customize->add_setting( 'portfolio_eyebrow', array(
+		'default'           => 'Selected Works',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'portfolio_eyebrow', array(
+		'label'   => __( 'Eyebrow text', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_portfolio',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'portfolio_title', array(
+		'default'           => 'Featured Projects',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'portfolio_title', array(
+		'label'   => __( 'Title', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_portfolio',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'portfolio_description', array(
+		'default'           => 'Explore our latest creative endeavors',
+		'sanitize_callback' => 'sanitize_textarea_field',
+	) );
+	$wp_customize->add_control( 'portfolio_description', array(
+		'label'   => __( 'Description', 'creative-portfolio' ),
+		'section' => 'creative_portfolio_portfolio',
+		'type'    => 'textarea',
+	) );
+
+	// -------------------------------------------------------------------------
+	// 3. Social Links
 	// -------------------------------------------------------------------------
 	$wp_customize->add_section(
 		'creative_portfolio_social',
@@ -150,7 +191,7 @@ function creative_portfolio_customize_register( WP_Customize_Manager $wp_customi
 	) );
 
 	// -------------------------------------------------------------------------
-	// 3. Footer
+	// 4. Footer
 	// -------------------------------------------------------------------------
 	$wp_customize->add_section(
 		'creative_portfolio_footer',

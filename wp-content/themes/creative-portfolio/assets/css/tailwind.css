@@ -208,3 +208,67 @@
 .scroll-bounce {
   animation: scrollBounce 1.5s ease-in-out infinite;
 }
+
+/* ==========================================================================
+   Portfolio Grid Animations
+   ========================================================================== */
+
+/* Card entrance animation */
+@keyframes portfolioFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Filter transition animations */
+@keyframes portfolioFilterOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes portfolioFilterIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Utility classes */
+.portfolio-card-enter {
+  animation: portfolioFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.portfolio-filter-out {
+  animation: portfolioFilterOut 0.3s ease-out forwards;
+}
+
+.portfolio-filter-in {
+  animation: portfolioFilterIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.portfolio-hidden {
+  display: none;
+}
+
+/* Active filter button styles */
+.portfolio-filter-active {
+  background: linear-gradient(to right, rgb(192, 38, 211), rgb(219, 39, 119));
+  color: white;
+  box-shadow: 0 10px 25px -5px rgba(217, 70, 239, 0.2);
+}

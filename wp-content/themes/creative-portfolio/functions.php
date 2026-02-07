@@ -147,6 +147,15 @@ function creative_portfolio_enqueue_assets(): void {
 		true
 	);
 
+	// Portfolio grid filtering and animations (footer, defer; depends on main.js).
+	wp_enqueue_script(
+		'creative-portfolio-portfolio-filter',
+		get_template_directory_uri() . '/assets/js/portfolio-filter.js',
+		array( 'creative-portfolio-main' ),
+		(string) filemtime( get_template_directory() . '/assets/js/portfolio-filter.js' ),
+		true
+	);
+
 	// Localized data for scripts (e.g. AJAX, nonce, home URL).
 	wp_localize_script(
 		'creative-portfolio-header',
@@ -182,7 +191,7 @@ add_action( 'wp_enqueue_scripts', 'creative_portfolio_enqueue_assets' );
  * @return string Modified script tag.
  */
 function creative_portfolio_script_loader_tag( string $tag, string $handle, string $src ): string {
-	$defer_handles = array( 'creative-portfolio-header', 'creative-portfolio-main', 'creative-portfolio-hero' );
+	$defer_handles = array( 'creative-portfolio-header', 'creative-portfolio-main', 'creative-portfolio-hero', 'creative-portfolio-portfolio-filter' );
 	if ( in_array( $handle, $defer_handles, true ) ) {
 		if ( str_contains( $tag, ' defer' ) ) {
 			return $tag;
@@ -254,6 +263,17 @@ if ( file_exists( $creative_portfolio_inc_dir . '/template-tags.php' ) ) {
 if ( file_exists( $creative_portfolio_inc_dir . '/customizer.php' ) ) {
 	require_once $creative_portfolio_inc_dir . '/customizer.php';
 }
+
+require get_template_directory() . '/inc/portfolio-post-type.php';
+require get_template_directory() . '/inc/portfolio-sample-data.php';
+
+/**
+ * Flush rewrite rules on theme activation.
+ */
+function creative_portfolio_flush_rewrites(): void {
+	flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'creative_portfolio_flush_rewrites' );
 
 // -----------------------------------------------------------------------------
 // 7. CONTENT WIDTH (handled by global $content_width at top of file)

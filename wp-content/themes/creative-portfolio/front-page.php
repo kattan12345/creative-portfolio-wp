@@ -7,16 +7,7 @@
 
 get_header();
 ?>
-	<section id="home" class="flex min-h-screen flex-col items-center justify-center px-5 py-24 lg:px-8">
-		<div class="mx-auto max-w-4xl text-center">
-			<h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-				<span class="bg-gradient-to-r from-fuchsia-400 to-pink-400 bg-clip-text text-transparent"><?php bloginfo( 'name' ); ?></span>
-			</h1>
-			<p class="mt-6 text-lg text-neutral-400">
-				<?php bloginfo( 'description' ); ?>
-			</p>
-		</div>
-	</section>
+	<?php get_template_part( 'template-parts/sections/hero' ); ?>
 
 	<section id="work" class="flex min-h-screen flex-col items-center justify-center px-5 py-24 lg:px-8">
 		<div class="mx-auto max-w-4xl text-center">

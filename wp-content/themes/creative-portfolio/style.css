@@ -1,0 +1,167 @@
+/*
+Theme Name: Creative Portfolio
+Theme URI: https://github.com/kattan12345/creative-portfolio-wp
+Author: kattan12345
+Description: Modern, animated WordPress portfolio theme built with v0.dev, Cursor, and TailwindCSS. Features dark mode, glassmorphism effects, smooth animations, and a stunning portfolio grid. Perfect for creative agencies, designers, and developers.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 8.1
+License: MIT
+License URI: https://opensource.org/licenses/MIT
+Text Domain: creative-portfolio
+Tags: portfolio, creative, agency, dark-mode, tailwindcss, modern, animation, one-column, custom-colors, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+*/
+
+/* ==========================================================================
+   TailwindCSS will be compiled here later (e.g. via build or Tailwind CLI).
+   ========================================================================== */
+
+/* ==========================================================================
+   Basic CSS reset for WordPress defaults
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* WordPress block/alignment defaults */
+.alignleft {
+  float: left;
+  margin-right: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.alignright {
+  float: right;
+  margin-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.5em;
+}
+
+/* WordPress captions */
+.wp-caption {
+  max-width: 100%;
+}
+
+.wp-caption-text {
+  font-size: 0.875em;
+  margin-top: 0.5em;
+  opacity: 0.8;
+}
+
+/* WordPress galleries */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gallery-item {
+  margin: 0;
+}
+
+/* ==========================================================================
+   Skip-to-content link (accessibility)
+   ========================================================================== */
+
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal;
+}
+
+.screen-reader-text:focus {
+  background-color: #fff;
+  clip: auto;
+  clip-path: none;
+  color: #000;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  height: auto;
+  left: 0.5rem;
+  line-height: normal;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  top: 0.5rem;
+  width: auto;
+  z-index: 100000;
+  border-radius: 0.25rem;
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Skip link styled in header.php with Tailwind; this ensures baseline when not using Tailwind */
+.skip-link.screen-reader-text:focus {
+  position: absolute;
+}
+
+/* ==========================================================================
+   Header: active nav link (gradient text + underline) — JS toggles .nav-link-active
+   ========================================================================== */
+
+.header-nav a.nav-link-active .nav-link-text {
+  background: linear-gradient(to right, #e879f9, #f472b6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.header-nav a.nav-link-active [data-active-underline] {
+  transform: scaleX(1);
+}
